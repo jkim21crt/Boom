@@ -14,7 +14,7 @@ int PIR;
 int d = 0;
 int analogFill;
 Timer timer;
-int countAmount = 59;
+int countAmount = 299;
 void setup() {
     size(1680,1050);
     UI = loadImage("UI.png");
@@ -27,7 +27,7 @@ void setup() {
     arduino.pinMode(4, Arduino.INPUT); //PIR
     arduino.pinMode(11, Arduino.OUTPUT);//Servo
     arduino.pinMode(3, Arduino.OUTPUT);//LED
-    arduino.pinMode(13, Arduino.OUTPUT); //buzzer
+    arduino.pinMode(7, Arduino.OUTPUT); //buzzer
 
     timer = new Timer(1000);
     noStroke();
@@ -42,9 +42,10 @@ void draw() {
      }
      
      
-    if(arduino.analogRead(4)>90 && counter==0)  //PIR            ///PIR sensor Pwm and Time Trigger
+    if(arduino.digitalRead(4)==Arduino.HIGH && counter==0)  //PIR            ///PIR sensor Pwm and Time Trigger
     {
-     timer.start(); 
+      println("hot");
+      timer.start(); 
      counter = 1;
     }
     if(counter==1){
@@ -59,7 +60,7 @@ void draw() {
     countAmount--;
     
     arduino.digitalWrite(3, 255);      // LED
-    arduino.analogWrite(13, 255);      //buzzer
+    arduino.analogWrite(7, 255);      //buzzer
     
     if(seco>-1)
     {
